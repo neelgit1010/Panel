@@ -1,0 +1,4 @@
+1. setting hamburger at different screens
+2. Creating 2nd level(sub-menu) menu, DONE🚩
+3. configure the account section in sidebar
+4. add screen in workspace
