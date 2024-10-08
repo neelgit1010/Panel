@@ -163,3 +163,13 @@
   background-size: cover;
   background-position: center;
 }
+
+.content {
+  background-color: #656167af;
+  padding: 20px;
+  width: 100%;
+  @media (max-width: 768px) {
+   position: fixed;
+   z-index: -10;
+  }
+}
