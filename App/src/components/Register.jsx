@@ -3,7 +3,7 @@ import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import { toastError, toastSuccess } from "../utils";
+import { toast } from "react-toastify";
 
 const Register = ({ showPassword, setShowPassword }) => {
 
@@ -28,10 +28,19 @@ const Register = ({ showPassword, setShowPassword }) => {
         password,
       });
       console.log(response.data);
-      return toastSuccess(response.data.message);
+      toast.success('🦄 User registered successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     } catch (error) {
       console.error(error);
-      return toastError(error.response.data.message);
+     
     }
   };
 
