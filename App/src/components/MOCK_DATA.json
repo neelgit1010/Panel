@@ -76,5 +76,11 @@
     "email": "test@gmail.com",
     "first_name": "test-user",
     "pwd": "test-pwd"
+  },
+  {
+    "id": 144,
+    "email": "hero@gmail.com",
+    "first_name": "HeroName",
+    "pwd": "heropwd"
   }
 ]
