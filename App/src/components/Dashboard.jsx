@@ -25,7 +25,7 @@ const Dashboard = () => {
       if (!token) {
         throw new Error("No token found in local storage");
       }
-      const response = await axios.get("http://localhost:5000/product", {
+      const response = await axios.get("https://panel-api-server.vercel.app/product", {
         headers: {
           Authorization: token,
         },
