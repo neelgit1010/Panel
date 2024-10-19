@@ -7,6 +7,7 @@ import { IoLogOut } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom"; // For navigation
 import Submenu from "./Submenu"; // Ensure you have a Submenu component
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -67,6 +68,24 @@ const Sidebar = () => {
   ];
 
   const handleMenuClick = (item) => {
+    if (item.name === "Logout") {
+      localStorage.clear();
+      toast.success(`🦄 Logged out successfully!`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      return;
+    }
+
     if (item.submenu) {
       // Expand sidebar if it's collapsed
       if (!activeSideBar) {

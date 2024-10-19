@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const handleUserVerification = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1];  // Token after 'Bearer'
+    const token = req.headers['authorization'];  // Token after 'Bearer' Bearer <token>
 
     if (!token) {
         return res
