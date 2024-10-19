@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   const [loggedInUser, setLoggedInUser] = useState({
@@ -58,6 +59,7 @@ const Dashboard = () => {
           <h1>Content</h1>
           <h2>Welcome {loggedInUser.name ?? "No Name"}</h2>
           <h2>{loggedInUser.email ?? "No Email"}</h2>
+          <Outlet />
         </div>
       </div>
     </div>

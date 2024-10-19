@@ -73,6 +73,7 @@ require("./models/db");
 // Routes
 const authRoute = require("./routes/auth");
 const productsRoute = require("./routes/products");
+const userDataRoute = require("./routes/userData");
 
 const PORT = process.env.PORT || 5000;
 
@@ -80,5 +81,6 @@ app.get('/respond', (req, res) => res.send('Hello World!'));
 
 app.use("/auth", authRoute);
 app.use("/product", productsRoute);
+app.use("/userData", userDataRoute);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

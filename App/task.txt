@@ -1,4 +1,7 @@
-1. setting hamburger at different screens
-2. Creating 2nd level(sub-menu) menu, DONE🚩
-3. configure the account section in sidebar
-4. add screen in workspace
+1. setting hamburger at different screens DONE🚀
+2. Creating 2nd level(sub-menu) menu, DONE🚀
+3. configure the account section in sidebar DONE🚀
+4. add screen in workspace DONE🚀
+
+5. login, reg from server DONE🚀
+6. make seperate userData for seperate user NOT-DONE❌

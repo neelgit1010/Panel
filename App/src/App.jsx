@@ -7,6 +7,11 @@ import Dashboard from "./components/Dashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserHandler from "./UserHandler";
+import AddProduct from "./pages/AddProduct";
+import ViewProducts from "./pages/ViewProducts";
+import Yearly from "./pages/Yearly";
+import Monthly from "./pages/Monthly";
+import Weekly from "./pages/Weekly";
 
 function App() {
   const [showPassword, setShowPassword] = useState(false);
@@ -58,10 +63,16 @@ function App() {
             />
           }
         />
-        <Route
-          path="/dashboard"
-          element={<PrivateRoute children={<Dashboard />} />}
-        />
+
+        <Route path="/dashboard" element={<PrivateRoute children={<Dashboard />} />}>
+          <Route path="add-product" element={<PrivateRoute children={<AddProduct />} />} />
+          <Route path="view-product" element={<PrivateRoute children={<ViewProducts />} />} />
+          <Route path="weekly" element={<PrivateRoute children={<Weekly />} />} />
+          <Route path="monthly" element={<PrivateRoute children={<Monthly />} />} />
+          <Route path="yearly" element={<PrivateRoute children={<Yearly />} />} />
+        </Route>
+
+        
       </Routes>
     </Router>
   );

@@ -38,17 +38,17 @@ const Sidebar = () => {
       name: "Orders",
       icon: <FaCalendarAlt width="16" height="16" />,
       submenu: [
-        { name: "Weekly", link: "/dashboard" },
-        { name: "Monthly", link: "/dashboard" },
-        { name: "Yearly", link: "/dashboard" },
+        { name: "Weekly", link: "/dashboard/weekly" },
+        { name: "Monthly", link: "/dashboard/monthly" },
+        { name: "Yearly", link: "/dashboard/yearly" },
       ],
     },
     {
       name: "Products",
       icon: <AiFillProduct width="16" height="16" />,
       submenu: [
-        { name: "Add Product", link: "/dashboard" },
-        { name: "View Products", link: "/dashboard" },
+        { name: "Add Product", link: "/dashboard/add-product" },
+        { name: "View Products", link: "/dashboard/view-product" },
       ],
     },
     {
@@ -100,6 +100,8 @@ const Sidebar = () => {
         setActiveSubmenu(item.name);
         setActiveMenu(item.name);
       }
+
+      // navigate(item.submenu[0].link);
     } else {
       console.log(`${item.name} clicked`);
 
