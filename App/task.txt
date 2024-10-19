@@ -4,4 +4,6 @@
 4. add screen in workspace DONE🚀
 
 5. login, reg from server DONE🚀
-6. make seperate userData for seperate user NOT-DONE❌
+6. make seperate userData for seperate user DONE🚀
+7. Submenu pages added DONE🚀
+8. Submenu pages content NOT-DONE❌
