@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const [loggedInUser, setLoggedInUser] = useState({
     name: "",
     email: "",
+  });
+  const [products, setProducts] = useState({
+    title: "",
+    description: "",
+    price: "",
   });
 
   useEffect(() => {
@@ -39,9 +45,37 @@ const Dashboard = () => {
     } catch (error) {
       console.log(error);
       if (error.response && error.response.status === 401) {
+        toast.error("Unauthorized, please login again", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
         console.log("Unauthorized, please login again");
       }
     }
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found in local storage");
+    }
+    const response = await axios.post("https://panel-api-server.vercel.app/userData", {
+      title: products.title,
+      description: products.description,
+      price: products.price,
+    }, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    console.log(response.data);
   };
 
   useEffect(() => {
@@ -56,7 +90,18 @@ const Dashboard = () => {
       <div className="d-flex w-100">
       <Sidebar />
         <div className="content">
-          <h1>Content</h1>
+          <div >
+             <form onSubmit={handleFormSubmit}>
+                <label htmlFor="title">Title</label>
+                <input type="text" name="name" placeholder="Enter Name" />
+                <label htmlFor="desc">Description</label>
+                <textarea name="desc" id="desc"></textarea>
+                <label htmlFor="price">Price</label>
+                <input type="number" name="number" placeholder="Enter Price" />
+
+                <button type="submit">Add Info</button>
+             </form>
+          </div>
           <h2>Welcome {loggedInUser.name ?? "No Name"}</h2>
           <h2>{loggedInUser.email ?? "No Email"}</h2>
           <Outlet />
