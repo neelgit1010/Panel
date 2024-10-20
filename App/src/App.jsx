@@ -71,7 +71,8 @@ function App() {
           <Route path="monthly" element={<PrivateRoute children={<Monthly />} />} />
           <Route path="yearly" element={<PrivateRoute children={<Yearly />} />} />
         </Route>
-
+        
+        <Route path="*" element={ <center><h1>Page Not Found</h1></center> } />
         
       </Routes>
     </Router>
