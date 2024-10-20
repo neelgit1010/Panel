@@ -36,14 +36,17 @@ const Dashboard = () => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
-          navigate("/");
+        });
+        navigate("/");
       }
-      const response = await axios.get("https://panel-api-server.vercel.app/product", {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        "https://panel-api-server.vercel.app/product",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
       const data = response.data;
       if (!data) {
         throw new Error("No data found in response");
@@ -61,7 +64,7 @@ const Dashboard = () => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
         console.log("Unauthorized, please login again");
       }
     }
@@ -89,17 +92,21 @@ const Dashboard = () => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
-    const response = await axios.post("https://panel-api-server.vercel.app/userData", {
-      title,
-      description,
-      price,
-    }, {
-      headers: {
-        Authorization: token,
+    const response = await axios.post(
+      "https://panel-api-server.vercel.app/userData",
+      {
+        title,
+        description,
+        price,
       },
-    });
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
     console.log(response.data);
   };
 
@@ -113,23 +120,45 @@ const Dashboard = () => {
       </div>
 
       <div className="d-flex w-100">
-      <Sidebar />
+        <Sidebar />
         <div className="content">
-          <div >
-             <form method="post" onSubmit={handleFormSubmit}>
-                <label htmlFor="title">Title</label>
-                <input type="text" name="title" onChange={handleChange} placeholder="Enter Name" />
-                <label htmlFor="desc">Description</label>
-                <textarea name="description" id="description" onChange={handleChange}></textarea>
-                <label htmlFor="price">Price</label>
-                <input type="number" name="price" placeholder="Enter Price" onChange={handleChange} />
+          <div>
+            <form method="post" onSubmit={handleFormSubmit}>
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                name="title"
+                onChange={handleChange}
+                placeholder="Enter Name"
+              />
+              <label htmlFor="desc">Description</label>
+              <textarea
+                name="description"
+                id="description"
+                onChange={handleChange}
+              ></textarea>
+              <label htmlFor="price">Price</label>
+              <input
+                type="number"
+                name="price"
+                placeholder="Enter Price"
+                onChange={handleChange}
+              />
 
-                <button type="submit">Add Info</button>
-             </form>
+              <button type="submit">Add Info</button>
+            </form>
           </div>
           <h2>Welcome {loggedInUser.name ?? "No Name"}</h2>
           <h2>{loggedInUser.email ?? "No Email"}</h2>
           <Outlet />
+          <h2>Product List</h2>
+          <ul>
+            {products.map((product, index) => (
+              <li key={index}>
+                {product.title} - ${product.price} - ${product.description}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
