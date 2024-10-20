@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [loggedInUser, setLoggedInUser] = useState({
     name: "",
     email: "",
@@ -26,7 +27,17 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        throw new Error("No token found in local storage");
+        toast.error("Session expired, please login again", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+          navigate("/");
       }
       const response = await axios.get("https://panel-api-server.vercel.app/product", {
         headers: {
@@ -69,7 +80,16 @@ const Dashboard = () => {
 
     const token = localStorage.getItem("token");
     if (!token) {
-      throw new Error("No token found in local storage");
+      toast.error("Session expired, please login again", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
     const response = await axios.post("https://panel-api-server.vercel.app/userData", {
       title,
