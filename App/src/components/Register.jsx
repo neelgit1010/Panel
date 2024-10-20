@@ -1,57 +1,92 @@
 import { FaUserAlt, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useRef } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Register = ({ showPassword, setShowPassword }) => {
+  const navigate = useNavigate();
+  const [signinInfo, setsigninInfo] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const refEmail = useRef(null);
-  const refUsername = useRef(null);
-  const refPassword = useRef(null);
+  const handleChange = (e) => {
+    setsigninInfo({ ...signinInfo, [e.target.name]: e.target.value });
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const email = refEmail.current.value;
-    const username = refUsername.current.value;
-    const password = refPassword.current.value;
-  
-    const userData = {
-      email,
-      username,
-      password,
-    };
-  
-    console.log(userData); // Log the data being sent
+    const { name, email, password } = signinInfo;
+
     try {
-      const response = await axios.post("http://localhost:5000/register", userData);
-      console.log("User registered successfully:", response.data);
-      alert("User registered successfully");
+      const response = await axios.post("https://panel-api-server.vercel.app/auth/register", {
+        name,
+        email,
+        password,
+      });
+      if (response.data.success) {
+        toast.success(`🦄 ${response.data.message}!`, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
     } catch (error) {
-      console.error("Error registering user:", error);
+      toast.error(`🦄 ${error.response.data.message}`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
-  
 
   return (
     <div className="landing-page">
       <div className="card">
-        <form method="post" action="" onSubmit={(e) => handleFormSubmit(e)}>
+        <form method="post" action="" onSubmit={handleFormSubmit}>
           <h1>Rgister</h1>
           <div className="input-box">
-            <MdEmail className="icon" />
-            <input type="email" placeholder="Email" ref={refEmail} required />
+            <FaUserAlt className="icon" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              onChange={handleChange}
+            />
           </div>
           <div className="input-box">
-            <FaUserAlt className="icon" />
-            <input type="text" placeholder="Username" ref={refUsername} required />
+            <MdEmail className="icon" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+            />
           </div>
           <div className="input-box">
             <FaLock className="icon" />
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              ref={refPassword}
-              required
+              name="password"
+              onChange={handleChange}
             />
             <span
               className="icon-eye"

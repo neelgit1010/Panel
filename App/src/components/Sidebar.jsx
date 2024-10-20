@@ -7,6 +7,7 @@ import { IoLogOut } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom"; // For navigation
 import Submenu from "./Submenu"; // Ensure you have a Submenu component
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -37,17 +38,17 @@ const Sidebar = () => {
       name: "Orders",
       icon: <FaCalendarAlt width="16" height="16" />,
       submenu: [
-        { name: "Weekly", link: "/dashboard" },
-        { name: "Monthly", link: "/dashboard" },
-        { name: "Yearly", link: "/dashboard" },
+        { name: "Weekly", link: "/dashboard/weekly" },
+        { name: "Monthly", link: "/dashboard/monthly" },
+        { name: "Yearly", link: "/dashboard/yearly" },
       ],
     },
     {
       name: "Products",
       icon: <AiFillProduct width="16" height="16" />,
       submenu: [
-        { name: "Add Product", link: "/dashboard" },
-        { name: "View Products", link: "/dashboard" },
+        { name: "Add Product", link: "/dashboard/add-product" },
+        { name: "View Products", link: "/dashboard/view-product" },
       ],
     },
     {
@@ -67,6 +68,24 @@ const Sidebar = () => {
   ];
 
   const handleMenuClick = (item) => {
+    if (item.name === "Logout") {
+      localStorage.clear();
+      toast.success(`🦄 Logged out successfully!`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      return;
+    }
+
     if (item.submenu) {
       // Expand sidebar if it's collapsed
       if (!activeSideBar) {
@@ -81,6 +100,8 @@ const Sidebar = () => {
         setActiveSubmenu(item.name);
         setActiveMenu(item.name);
       }
+
+      // navigate(item.submenu[0].link);
     } else {
       console.log(`${item.name} clicked`);
 

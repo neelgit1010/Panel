@@ -1,36 +1,78 @@
 import { FaUserAlt, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import data from "./MOCK_DATA.json";
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Login = ({ showPassword, setShowPassword }) => {
   
   const navigate = useNavigate();
-  const openDashboard = (e) => {
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
+  };
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const userData = data.find(
-      (user) =>
-        user.first_name === e.target.username.value &&
-        user.pwd === e.target.password.value
-    );
-    if (userData === undefined) {
-      alert("Invalid username or password");
-      return;
+    const {email, password } = loginInfo;
+    
+    try {
+      const response = await axios.post("https://panel-api-server.vercel.app/auth/login", {
+        email,
+        password,
+      });
+      if(response.data.success) {
+        // console.log(response.data);
+        const {email, name, token} = response.data;
+        // console.log(email, name, token);
+        
+        toast.success(`🦄 ${response.data.message}!`, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+
+          setTimeout(() => {
+            localStorage.setItem("email", email);
+            localStorage.setItem("name", name);
+            localStorage.setItem("token", token);
+            navigate("/dashboard");
+          }, 1000);
+      }
+        
+    } catch (error) {
+      toast.error(`🦄 ${error.response.data.message}`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
-    alert("Login Successful");
-    navigate("/dashboard", { state: { userData } });
   };
 
   return (
     <div className="landing-page">
       <div className="card">
-        <form action="/dashboard" onSubmit={(e) => openDashboard(e)}>
+        <form action="/dashboard" onSubmit={handleFormSubmit}>
           <h1>Login</h1>
           <div className="input-box">
             <FaUserAlt className="icon" />
             <input
-              type="text"
-              name="username"
-              placeholder="Username"
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
               required
             />
           </div>
@@ -40,6 +82,7 @@ const Login = ({ showPassword, setShowPassword }) => {
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              onChange={handleChange}
               required
             />
             <span
