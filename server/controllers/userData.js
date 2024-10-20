@@ -12,7 +12,7 @@ const createUserData = async (req, res) => {
     
         await userData.create(newUserData);
         // console.log(newUserData);
-        res.status(201).json({ success: true });
+        res.status(201).json({ newUserData, success: true });
     } catch (error) {
         res.status(500).json({ message: error.message, success: false });
     }

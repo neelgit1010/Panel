@@ -9,11 +9,7 @@ const Dashboard = () => {
     name: "",
     email: "",
   });
-  const [products, setProducts] = useState({
-    title: "",
-    description: "",
-    price: "",
-  });
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     setLoggedInUser({
@@ -60,16 +56,25 @@ const Dashboard = () => {
     }
   };
 
+  const handleChange = (e) => {
+    setProducts({
+      ...products,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    const { title, description, price } = products;
+
     const token = localStorage.getItem("token");
     if (!token) {
       throw new Error("No token found in local storage");
     }
     const response = await axios.post("https://panel-api-server.vercel.app/userData", {
-      title: products.title,
-      description: products.description,
-      price: products.price,
+      title,
+      description,
+      price,
     }, {
       headers: {
         Authorization: token,
@@ -93,11 +98,11 @@ const Dashboard = () => {
           <div >
              <form method="post" onSubmit={handleFormSubmit}>
                 <label htmlFor="title">Title</label>
-                <input type="text" name="name" placeholder="Enter Name" />
+                <input type="text" name="title" onChange={handleChange} placeholder="Enter Name" />
                 <label htmlFor="desc">Description</label>
-                <textarea name="desc" id="desc"></textarea>
+                <textarea name="description" id="description" onChange={handleChange}></textarea>
                 <label htmlFor="price">Price</label>
-                <input type="number" name="number" placeholder="Enter Price" />
+                <input type="number" name="price" placeholder="Enter Price" onChange={handleChange} />
 
                 <button type="submit">Add Info</button>
              </form>
