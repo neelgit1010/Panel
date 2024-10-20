@@ -91,7 +91,7 @@ const Dashboard = () => {
       <Sidebar />
         <div className="content">
           <div >
-             <form onSubmit={handleFormSubmit}>
+             <form method="post" onSubmit={handleFormSubmit}>
                 <label htmlFor="title">Title</label>
                 <input type="text" name="name" placeholder="Enter Name" />
                 <label htmlFor="desc">Description</label>
