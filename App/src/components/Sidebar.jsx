@@ -20,18 +20,18 @@ const Sidebar = () => {
       name: "Home",
       icon: <FaHome width="16" height="16" />,
       submenu: [
-        { name: "Submenu 1", link: "/dashboard" },
-        { name: "Submenu 2", link: "/dashboard" },
-        { name: "Submenu 3", link: "/dashboard" },
+        { name: "Our Services", link: "/dashboard/services" },
+        { name: "Featured Projects", link: "/dashboard/featured-projects" },
+        { name: "Company Values", link: "/dashboard/company-values" },
       ],
     },
     {
       name: "Dashboard",
       icon: <FaTachometerAlt width="16" height="16" />,
       submenu: [
-        { name: "Submenu 1", link: "/dashboard" },
-        { name: "Submenu 2", link: "/dashboard" },
-        { name: "Submenu 3", link: "/dashboard" },
+        { name: "Recent Activity", link: "/dashboard/recent-activity" },
+        { name: "Project Overview", link: "/dashboard/project-overview" },
+        { name: "Reports", link: "/dashboard/reports" },
       ],
     },
     {
@@ -55,9 +55,9 @@ const Sidebar = () => {
       name: "Customers",
       icon: <BsFillPeopleFill width="16" height="16" />,
       submenu: [
-        { name: "Submenu 1", link: "/dashboard" },
-        { name: "Submenu 2", link: "/dashboard" },
-        { name: "Submenu 3", link: "/dashboard" },
+        { name: "Order History", link: "/dashboard/order-history" },
+        { name: "Billing Information", link: "/dashboard/billing-info" },
+        { name: "Shipping Addresses", link: "/dashboard/shipping" },
       ],
     },
     {

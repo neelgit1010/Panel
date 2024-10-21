@@ -12,6 +12,15 @@ import ViewProducts from "./pages/ViewProducts";
 import Yearly from "./pages/Yearly";
 import Monthly from "./pages/Monthly";
 import Weekly from "./pages/Weekly";
+import BillingInfo from "./pages/BillingInfo";
+import CompanyValues from "./pages/CompanyValues";
+import FeaturedProjects from "./pages/FeaturedProjects";
+import OrderHistory from "./pages/OrderHistory";
+import OurServices from "./pages/OurServices";
+import ProjectOverview from "./pages/ProjectOverview";
+import RecentActivity from "./pages/RecentActivity";
+import Reports from "./pages/Reports";
+import ShippingAdd from "./pages/ShippingAdd";
 
 function App() {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,6 +79,15 @@ function App() {
           <Route path="weekly" element={<PrivateRoute children={<Weekly />} />} />
           <Route path="monthly" element={<PrivateRoute children={<Monthly />} />} />
           <Route path="yearly" element={<PrivateRoute children={<Yearly />} />} />
+          <Route path="billing-info" element={<PrivateRoute children={<BillingInfo />} />} />
+          <Route path="company-values" element={<PrivateRoute children={<CompanyValues />} />} />
+          <Route path="featured-projects" element={<PrivateRoute children={<FeaturedProjects />} />} />
+          <Route path="order-history" element={<PrivateRoute children={<OrderHistory />} />} />
+          <Route path="services" element={<PrivateRoute children={<OurServices />} />} />
+          <Route path="project-overview" element={<PrivateRoute children={<ProjectOverview />} />} />
+          <Route path="recent-activity" element={<PrivateRoute children={<RecentActivity />} />} />
+          <Route path="reports" element={<PrivateRoute children={<Reports />} />} />
+          <Route path="shipping" element={<PrivateRoute children={<ShippingAdd />} />} />
         </Route>
         
         <Route path="*" element={ <center><h1>Page Not Found</h1></center> } />
