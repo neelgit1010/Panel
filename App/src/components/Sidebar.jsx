@@ -102,7 +102,6 @@ const Sidebar = () => {
         setActiveMenu(item.name);
       }
 
-      // navigate(item.submenu[0].link);
     } else {
       console.log(`${item.name} clicked`);
 
@@ -112,10 +111,6 @@ const Sidebar = () => {
 
       setActiveMenu(item.name); // Set active menu for non-submenu items
 
-      // Use navigate to redirect
-      if (item.name === "Dashboard") {
-        navigate("/dashboard");
-      }
     }
   };
 
@@ -158,7 +153,7 @@ const Sidebar = () => {
       </div>
       <button
         type="button"
-        className="bg-transparent border-0 float-end text-white position-absolute top-0 end-0 my-4 d-flex align-items-center fs-4"
+        className="bg-transparent border-0 float-end text-white position-absolute top-0 end-0 my-2 d-flex align-items-center fs-4"
         onClick={() => {
           // Toggle the sidebar
           setActiveSideBar((prev) => !prev);
