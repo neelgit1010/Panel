@@ -1,7 +1,7 @@
 import { FaUserAlt, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const Login = ({ showPassword, setShowPassword }) => {
@@ -11,24 +11,45 @@ const Login = ({ showPassword, setShowPassword }) => {
     email: "",
     password: "",
   });
+  const [rememberMe, setRememberMe] = useState(false);
+
+  // Retrieve email from localStorage if 'Remember Me' was checked
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem("rememberedEmail");
+    if (rememberedEmail) {
+      setLoginInfo((prevInfo) => ({
+        ...prevInfo,
+        email: rememberedEmail,
+      }));
+      setRememberMe(true); // Automatically check the checkbox
+    }
+  }, []);
+
   const handleChange = (e) => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
+
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+    if (!e.target.checked) {
+      localStorage.removeItem("rememberedEmail");
+    }
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const {email, password } = loginInfo;
-    
+    const { email, password } = loginInfo;
+
     try {
       const response = await axios.post("https://panel-api-server.vercel.app/auth/login", {
         email,
         password,
       });
-      if(response.data.success) {
-        // console.log(response.data);
-        const {email, name, token} = response.data;
-        // console.log(email, name, token);
+      if (response.data.success) {
+        const { email, name, token } = response.data;
         
-        toast.success(`🦄 ${response.data.message}!`, {
+        // Show success toast
+        toast.success(`🦄 Welcome, ${name}!`, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -37,16 +58,23 @@ const Login = ({ showPassword, setShowPassword }) => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
 
-          setTimeout(() => {
-            localStorage.setItem("email", email);
-            localStorage.setItem("name", name);
-            localStorage.setItem("token", token);
-            navigate("/dashboard");
-          }, 1000);
+        // Save email to localStorage if 'Remember Me' is checked
+        if (rememberMe) {
+          localStorage.setItem("rememberedEmail", email);
+        } else {
+          localStorage.removeItem("rememberedEmail");
+        }
+
+        // Save token and user data, then navigate to dashboard
+        setTimeout(() => {
+          localStorage.setItem("email", email);
+          localStorage.setItem("name", name);
+          localStorage.setItem("token", token);
+          navigate("/dashboard");
+        }, 1000);
       }
-        
     } catch (error) {
       toast.error(`🦄 ${error.response.data.message}`, {
         position: "top-right",
@@ -57,14 +85,14 @@ const Login = ({ showPassword, setShowPassword }) => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   };
 
   return (
     <div className="landing-page">
       <div className="card">
-        <form action="/dashboard" onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
           <h1>Login</h1>
           <div className="input-box">
             <FaUserAlt className="icon" />
@@ -73,6 +101,7 @@ const Login = ({ showPassword, setShowPassword }) => {
               name="email"
               placeholder="Email"
               onChange={handleChange}
+              value={loginInfo.email}
               required
             />
           </div>
@@ -95,7 +124,11 @@ const Login = ({ showPassword, setShowPassword }) => {
 
           <div className="remember-forgot">
             <label>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={handleRememberMe}
+              />
               Remember me
             </label>
             <a href="#">Forgot password?</a>

@@ -69,7 +69,8 @@ const Sidebar = () => {
 
   const handleMenuClick = (item) => {
     if (item.name === "Logout") {
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("name");
       toast.success(`🦄 Logged out successfully!`, {
         position: "top-right",
         autoClose: 2000,

@@ -61,7 +61,7 @@ const Register = ({ showPassword, setShowPassword }) => {
     <div className="landing-page">
       <div className="card">
         <form method="post" action="" onSubmit={handleFormSubmit}>
-          <h1>Rgister</h1>
+          <h1>Register</h1>
           <div className="input-box">
             <FaUserAlt className="icon" />
             <input
