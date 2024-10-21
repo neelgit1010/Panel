@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loggedInUser, setLoggedInUser] = useState({
     name: "",
     email: "",
@@ -37,7 +37,7 @@ const Dashboard = () => {
           progress: undefined,
           theme: "dark",
         });
-        navigate("/");
+       
       }
       const response = await axios.get(
         "https://panel-api-server.vercel.app/product",
@@ -66,6 +66,7 @@ const Dashboard = () => {
           theme: "dark",
         });
         console.log("Unauthorized, please login again");
+        
       }
     }
   };
