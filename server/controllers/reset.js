@@ -16,7 +16,7 @@ const handleResetPassword = async (req, res) => {
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
       expiresIn: "5m",
     });
-    const link = `https://panel-api-server.vercel.app/reset-password/?id=${oldUser._id}/token=${token}`;
+    const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
     console.log(link);
 
     //   const transporter = nodemailer.createTransport({
@@ -49,27 +49,40 @@ const handleResetPassword = async (req, res) => {
 
 const getResetPassword = async (req, res) => {
   const { id, token } = req.params;
-  console.log(id, token);
-  res.send("Password reset link sent to your email");
+  console.log(req.params);
+  // res.send("Password reset link sent to your email");
   
-//   try {
-//     const oldUser = await User.findById(id);
-//     if (!oldUser) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     const secret = oldUser._id + process.env.JWT_SECRET;
-//     const decoded = jwt.verify(token, secret);
-//     if (decoded.email !== oldUser.email) {
-//       return res.status(401).json({ message: "Invalid token" });
-//     }
-//     const { password } = req.body;
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     oldUser.password = hashedPassword;
-//     await oldUser.save();
-//     res.status(200).json({ message: "Password reset successfully" });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
+  // try {
+  //   const oldUser = await User.findById(id);
+  //   if (!oldUser) {
+  //     return res.status(404).json({ message: "User not found" });
+  //   }
+  //   const secret = oldUser._id + process.env.JWT_SECRET;
+  //   const decoded = jwt.verify(token, secret);
+  //   if (decoded.email !== oldUser.email) {
+  //     return res.status(401).json({ message: "Invalid token" });
+  //   }
+  //   const { password } = req.body;
+  //   const hashedPassword = await bcrypt.hash(password, 10);
+  //   oldUser.password = hashedPassword;
+  //   await oldUser.save();
+  //   res.status(200).json({ message: "Password reset successfully" });
+  // } catch (error) {
+  //   res.status(500).json({ message: error.message });
+  // }
+
+  try {
+    const oldUser = await User.findById(id);
+    if (!oldUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const secret = oldUser._id + process.env.JWT_SECRET;
+    const decoded = jwt.verify(token, secret);
+    res.render("index", { email: decoded.email });
+    res.status(200).json({ message: "Password reset link sent to your email" });
+  } catch(err){
+
+  }
 };
 
 module.exports = { handleResetPassword, getResetPassword };
