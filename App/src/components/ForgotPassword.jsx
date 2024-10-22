@@ -7,14 +7,16 @@ import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     // Handle forgot password logic here
     // console.log("Email:", email);
     try{ 
-      const res = axios.post('https://panel-api-server.vercel.app/reset-password', { email });
-      if(res) { console.log(res);
+      const res = await axios.post('https://panel-api-server.vercel.app/reset-password', { email });
+      if(res) { 
+        
+        console.log(res);
         toast.success(`🦄 Password reset link sent to your email`);
       }
     }
