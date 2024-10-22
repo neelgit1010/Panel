@@ -12,7 +12,7 @@ const ForgotPassword = () => {
 
     // Handle forgot password logic here
     console.log("Email:", email);
-    const res = axios.post('http://localhost:5000/forgot-password', { email });
+    const res = axios.post('https://panel-api-server.vercel.app/forgot-password', { email });
     try{ 
       if (res) {
         toast.success(`🦄 ${res.data.message}!`);
