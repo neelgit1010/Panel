@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     // Handle forgot password logic here
     // console.log("Email:", email);
     try{ 
-      const res = await axios.post('https://panel-api-server.vercel.app/reset-password', { email });
+      const res = await axios.post('http://localhost:5000/reset-password', { email });
       if(res) {
         console.log(res.data);
         toast.success(`🦄 Password reset link sent to your email`);

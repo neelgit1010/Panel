@@ -42,7 +42,7 @@ const Login = ({ showPassword, setShowPassword }) => {
     const { email, password } = loginInfo;
 
     try {
-      const response = await axios.post("https://panel-api-server.vercel.app/auth/login", {
+      const response = await axios.post("http://localhost:5000/auth/login", {
         email,
         password,
       });

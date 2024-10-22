@@ -22,7 +22,7 @@ const AddProductPage = () => {
       return;
     }
     await axios.post(
-      "https://panel-api-server.vercel.app/userData",
+      "http://localhost:5000/userData",
       { title, description, price },
       { headers: { Authorization: token } }
     );
