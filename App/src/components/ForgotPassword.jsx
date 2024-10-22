@@ -11,9 +11,9 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     // Handle forgot password logic here
-    console.log("Email:", email);
-    const res = axios.post('https://panel-api-server.vercel.app/reset-password', { email });
+    // console.log("Email:", email);
     try{ 
+      const res = axios.post('https://panel-api-server.vercel.app/reset-password', { email });
       if(res) { console.log(res);
         toast.success(`🦄 Password reset link sent to your email`);
       }
