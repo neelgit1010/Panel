@@ -83,6 +83,6 @@ app.get('/respond', (req, res) => res.send('Hello World!'));
 app.use("/auth", authRoute);
 app.use("/product", productsRoute);
 app.use("/userData", userDataRoute);
-app.use("/forgot-password", resetRoute);
+app.use("/reset-password", resetRoute);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

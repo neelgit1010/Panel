@@ -1,8 +1,11 @@
 const nodemailer = require("nodemailer");
-const { User } = require("../models/User");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 const handleResetPassword = async (req, res) => {
   const { email } = req.body;
+  console.log(email);
+  
   try {
     const oldUser = await User.findOne({ email });
     if (!oldUser) {
@@ -13,7 +16,7 @@ const handleResetPassword = async (req, res) => {
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
       expiresIn: "5m",
     });
-    const link = `https://panel-api-server.vercel.app/forgot-password/${oldUser._id}/${token}`;
+    const link = `https://panel-api-server.vercel.app/reset-password/${oldUser._id}/${token}`;
     console.log(link);
 
     //   const transporter = nodemailer.createTransport({
@@ -38,7 +41,7 @@ const handleResetPassword = async (req, res) => {
     //       console.log("Email sent: " + info.response);
     //     }
     //   });
-    //   res.status(200).json({ message: "Email sent successfully" });
+      res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
