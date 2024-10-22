@@ -13,7 +13,7 @@ const ViewProductsPage = () => {
       return;
     }
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/auth/login`,
+      "https://panel-api-server.vercel.app/product",
       { headers: { Authorization: token } }
     );
     const data = response.data;

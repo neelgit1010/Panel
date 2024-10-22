@@ -41,7 +41,7 @@ const Login = ({ showPassword, setShowPassword }) => {
     const { email, password } = loginInfo;
 
     try {
-      const response = await axios.post(`${process.env.BACKEND_URL}/auth/login`, {
+      const response = await axios.post("${process.env.BACKEND_URL}/auth/login", {
         email,
         password,
       });
