@@ -1,4 +1,5 @@
-import { FaUserAlt, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -41,7 +42,7 @@ const Login = ({ showPassword, setShowPassword }) => {
     const { email, password } = loginInfo;
 
     try {
-      const response = await axios.post("${process.env.BACKEND_URL}/auth/login", {
+      const response = await axios.post("https://panel-api-server.vercel.app/auth/login", {
         email,
         password,
       });
@@ -95,7 +96,7 @@ const Login = ({ showPassword, setShowPassword }) => {
         <form onSubmit={handleFormSubmit}>
           <h1>Login</h1>
           <div className="input-box">
-            <FaUserAlt className="icon" />
+            <MdEmail className="icon" />
             <input
               type="email"
               name="email"
