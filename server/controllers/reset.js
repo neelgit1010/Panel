@@ -16,7 +16,7 @@ const handleResetPassword = async (req, res) => {
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
       expiresIn: "5m",
     });
-    const link = `https://panel-api-server.vercel.app/reset-password/${oldUser._id}/${token}`;
+    const link = `https://panel-api-server.vercel.app/reset-password/?id=${oldUser._id}/token=${token}`;
     console.log(link);
 
     //   const transporter = nodemailer.createTransport({
