@@ -41,7 +41,7 @@ const Login = ({ showPassword, setShowPassword }) => {
     const { email, password } = loginInfo;
 
     try {
-      const response = await axios.post("https://panel-api-server.vercel.app/auth/login", {
+      const response = await axios.post(`${process.env.BACKEND_URL}/auth/login`, {
         email,
         password,
       });
@@ -131,7 +131,7 @@ const Login = ({ showPassword, setShowPassword }) => {
               />
               Remember me
             </label>
-            <a href="#">Forgot password?</a>
+           <Link to="/forgot-password">Forgot password?</Link>
           </div>
 
           <button type="submit" className="btn btn-primary">

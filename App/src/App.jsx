@@ -21,6 +21,8 @@ import ProjectOverview from "./pages/ProjectOverview";
 import RecentActivity from "./pages/RecentActivity";
 import Reports from "./pages/Reports";
 import ShippingAdd from "./pages/ShippingAdd";
+import ForgotPassword from "./components/ForgotPassword";
+
 
 function App() {
   const [showPassword, setShowPassword] = useState(false);
@@ -63,6 +65,7 @@ function App() {
             </Login>
           }
         />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/register"
           element={

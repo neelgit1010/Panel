@@ -22,7 +22,7 @@ const Register = ({ showPassword, setShowPassword }) => {
     const { name, email, password } = signinInfo;
 
     try {
-      const response = await axios.post("https://panel-api-server.vercel.app/auth/register", {
+      const response = await axios.post(`${process.env.BACKEND_URL}/auth/register`, {
         name,
         email,
         password,
