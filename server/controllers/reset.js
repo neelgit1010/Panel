@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const handleResetPassword = async (req, res) => {
   const { email } = req.body;
-  console.log(email);
+  // console.log(email);
   
   try {
     const oldUser = await User.findOne({ email });
@@ -16,10 +16,10 @@ const handleResetPassword = async (req, res) => {
 
     const secret = process.env.JWT_SECRET + oldUser.password;
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
-      expiresIn: "1h",
+      expiresIn: "5m",
     });
     const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
-    console.log(link);
+    // console.log(link);
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -51,12 +51,12 @@ const handleResetPassword = async (req, res) => {
 
 const getResetPassword = async (req, res) => {
   const { id, token } = req.params;
-  console.log(req.params);
+  // console.log(req.params);
   const oldUser = await User.findOne({ _id: id });
   if (!oldUser) {
     return res.json({ status: "User Not Exists!!" });
   }
-  console.log(process.env.JWT_SECRET, oldUser.password);
+  // console.log(process.env.JWT_SECRET, oldUser.password);
   
   const secret = process.env.JWT_SECRET + oldUser.password;
   try {
@@ -67,7 +67,7 @@ const getResetPassword = async (req, res) => {
     if (!verify || !verify.email) {
       throw new Error("Verification failed");
     }
-    console.log(verify, token, secret);
+    // console.log(verify, token, secret);
     
     res.render("index", { email: verify.email, id: verify.id, token: token});
   } catch (error) {
